@@ -12,11 +12,19 @@ const allTasksContainer = document.getElementById("tasks-container-list")
 
 const noTasksMessage = document.getElementById("no-tasks-message")
 
+window.addEventListener("load", () => { 
+    //getcookies
+    console.log("getting cookies...")
+    
+    const task = localStorage.getItem("task-cookie").split(",")[0].toString();
+    append(task)
+    
+})
 
 
 
 
-addButton.addEventListener('click', async (e) => { 
+addButton.addEventListener('click', (e) => { 
     e.preventDefault()
     const inputValue = Input.getInputValue()
 
@@ -26,8 +34,11 @@ addButton.addEventListener('click', async (e) => {
 
         append(validation.task);
         tasksContainer.scrollTo(0, 10000); // scroll to bottom after added.
-        checkIfThereAreTasks();
+        checkIfThereAreTasks(); // controls no tasks message
         Input.clearInput();
+        
+        localStorage.setItem("task-cookie" , [validation.task, false])
+        document.cookie()
         return
     }
 
@@ -113,6 +124,8 @@ function append(task) {
     createdLi.className = "li-item"
     createdLi.setAttribute("taskId", Math.random().toString());
     createdLi.setAttribute("isdone", "false");
+
+
     
     const statusDiv = document.createElement("div");
     statusDiv.className = "status-div"
@@ -144,7 +157,9 @@ function append(task) {
 
     createdLi.addEventListener("dblclick", () => changeTaskState(createdLi.getAttribute("taskId")))
     createdDeleteButton.addEventListener("click", ()=> removeTask(createdLi.getAttribute("taskId")));
-    createdUpdateButton.addEventListener("click", ()=> updateTask(createdLi.getAttribute("taskId")));
+    createdUpdateButton.addEventListener("click", () => updateTask(createdLi.getAttribute("taskId")));
+    checkIfThereAreTasks();
+
 }
 
 

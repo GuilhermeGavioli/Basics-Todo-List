@@ -10,3 +10,53 @@ body {
     width: 100%;
     background: linear-gradient(to bottom right, rgb(57,171,122) , rgb(47,66,80));
 }
+
+input{
+    outline: none;
+}
+
+.li-item{
+    position: relative;
+    width: 100%;
+    padding: 0 0 15px 10px;
+    border: 2px solid black;
+    margin: 3px 0 3px 0;
+
+}
+
+.update-btn{
+    background-color: blue;
+}
+
+.delete-btn{
+    height: 15px;
+    width: 15px;
+    background-color: rgb(183, 6, 6);
+    padding: 4px;
+}
+
+
+.pairOfButtons{
+    position: absolute;
+    height: fit-content;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 10px;
+}
+
+.par-div{
+    width: 70%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    padding: 10px;
+}
+
+.status-div{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    background-color: red;
+    height: 100%;
+}

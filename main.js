@@ -4,13 +4,15 @@
 
 const addTaskInput = document.getElementById("task-input")
 const addButton = document.getElementById("add-task-btn")
-const removeButton = document.getElementById("remove-task-btn") 
-const updateButton = document.getElementById("update-task-btn")
 
+
+
+const tasksContainer =  document.getElementById("tasks-container")
 const allTasksContainer = document.getElementById("tasks-container-list")
 
 
-addButton.addEventListener('click', async () => { 
+addButton.addEventListener('click', async (e) => { 
+    e.preventDefault()
     const inputValue = Input.getInputValue()
 
     const validation = validateTask(inputValue)
@@ -18,6 +20,7 @@ addButton.addEventListener('click', async () => {
     if (validation.status) {
 
         append(validation.task);
+        tasksContainer.scrollTo(0, 10000); // scroll to bottom after added.
         Input.clearInput();
         return
     }
@@ -27,25 +30,59 @@ addButton.addEventListener('click', async () => {
 
 })
 
-function removeTask(taskID) { 
-    console.log(taskID)
-    //remove task
+function changeTaskState(taskID) {
     Array.from(allTasksContainer.children).map(element => {
-        if (element.id == taskID) element.remove();
+        if (element.getAttribute("taskid") == taskID) {
+
+            if (element.getAttribute("isdone").toString() == "false") {
+                element.setAttribute("isdone", "true");
+                element.firstChild.style.backgroundColor = "green";
+            }
+
+            else if (element.getAttribute("isdone").toString() == "true") { 
+                element.setAttribute("isdone", "false");
+                element.firstChild.style.backgroundColor = "red";
+            }
+       
+            
+            
+        }
      })
-    
-
-
-
+    // e.target.getAttribute("isDone") === "true" ? e.target.setAttribute("isDone", "false") : e.target.setAttribute("isDone", "true");
+    // if (e.target.getAttribute("isDone") === "true") e.target.style.backgroundColor = "green"
+    // if (e.target.getAttribute("isDone") === "false") e.target.style.backgroundColor = "red"
 }
 
-function updateTask(taskID) { 
+
+function removeTask(taskID) {
+    //e target remove
+    Array.from(allTasksContainer.children).map(element => {
+        if (element.getAttribute("taskid") == taskID) element.remove();
+     })
+}
+
+function updateTask(taskID) {
+    Array.from(allTasksContainer.children).map(element => {
+        console.log("here")
+        if (element.getAttribute("taskid") == taskID) { 
+            const validation = validateTask(addTaskInput.value)
+            if (validation.status){
+                element.children[1].innerText = addTaskInput.value
+                return Input.clearInput();
+            }
+            alert("Invalid task: " + validation.message)
+
+
+
+        }
+     })
 
 
 }
 
 function validateTask(task) {
-    if (!task) return { status: false, message: "Empty field or something else" };
+    if (task.trim() === "") return { status: false, message: "Empty field or something else" };
+    if(task.length > 50 || task.length < 2) return { status: false, message: "Field is too long or too short." };
     return {status: true, task, message: "ok"}
 };
 
@@ -55,25 +92,45 @@ class Input {
 }
 
 
-function append(task) { 
+
+function append(task) {
+    //change created word
     const createdLi = document.createElement("li");
-    createdLi.setAttribute("id", Math.random().toString())
+    createdLi.className = "li-item"
+    createdLi.setAttribute("taskId", Math.random().toString());
+    createdLi.setAttribute("isdone", "false");
+    
+    const statusDiv = document.createElement("div");
+    statusDiv.className = "status-div"
 
     const createdDeleteButton = document.createElement("button");
-    createdDeleteButton.className = "w-10 h-10 bg-green-400"
-    createdDeleteButton.innerText = "delete"
-
+    createdDeleteButton.innerText = "X"
+    createdDeleteButton.className = "detele-btn"
+    
+    
+    
+    const parDiv = document.createElement("div");
+    parDiv.className = "par-div"
+    parDiv.innerText = task
+    
+    
     const createdUpdateButton = document.createElement("button");
+    createdUpdateButton.className = "update-btn"
     createdUpdateButton.innerText = "update"
-
-    createdLi.append(task);
-    createdLi.append(createdDeleteButton);
-    createdLi.append(createdUpdateButton);
+    
+    const pairOfButtons = document.createElement('p')
+    pairOfButtons.className= "pairOfButtons"
+    
+    createdLi.append(statusDiv);
+    createdLi.append(parDiv);
+    pairOfButtons.append(createdDeleteButton);
+    pairOfButtons.append(createdUpdateButton);
+    createdLi.append(pairOfButtons);
     allTasksContainer.append(createdLi);
 
-
-    createdDeleteButton.addEventListener("click", ()=> removeTask(createdLi.getAttribute("id")));
-    createdUpdateButton.addEventListener("click", ()=> updateTask(createdLi.getAttribute("id")));
+    createdLi.addEventListener("dblclick", () => changeTaskState(createdLi.getAttribute("taskId")))
+    createdDeleteButton.addEventListener("click", ()=> removeTask(createdLi.getAttribute("taskId")));
+    createdUpdateButton.addEventListener("click", ()=> updateTask(createdLi.getAttribute("taskId")));
 }
 
 

@@ -6,14 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./main.css"></script>
+    <script defer src="./main.css"></script>
+
 
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://kit.fontawesome.com/69266619cf.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    TODO LIST
-    <p class=""></p>
+ 
+    <div class="w-96 h-72 bg-white rounded-md
+    relative mt-28 m-auto">
+
+        <div class="
+        w-5 h-5 rounded-full 
+        absolute top-1 right-1 ">
+        <i class="fa-solid fa-question"></i>
+        </div>
+
+
+        <input type="text" id="task-input">
+
+        <button id="add-task-btn">add</button>
+        <button id="remove-task-btn">remove</button>
+        <button id="update-task-btn">update</button>
+
+
+        <div id="tasks-container" class="bg-red-400 w-full h-fit">
+
+
+        </div>
+
+
+
+    </div>
 </body>
 </html>

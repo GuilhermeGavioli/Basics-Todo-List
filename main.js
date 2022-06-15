@@ -26,6 +26,7 @@ addButton.addEventListener('click', async (e) => {
 
         append(validation.task);
         tasksContainer.scrollTo(0, 10000); // scroll to bottom after added.
+        checkIfThereAreTasks();
         Input.clearInput();
         return
     }
@@ -63,7 +64,8 @@ function removeTask(taskID) {
     //e target remove
     Array.from(allTasksContainer.children).map(element => {
         if (element.getAttribute("taskid") == taskID) element.remove();
-     })
+    })
+    checkIfThereAreTasks();
 }
 
 function updateTask(taskID) {
@@ -92,8 +94,9 @@ function validateTask(task) {
 };
 
 function checkIfThereAreTasks() {
-    allTasksContainer
-    noTasksMessage.style.visibility = "hidden"
+    console.log(allTasksContainer.children)
+    if (allTasksContainer.children.length > 0) return noTasksMessage.style.visibility = "hidden"
+    noTasksMessage.style.visibility = "visible"
 }
 
 

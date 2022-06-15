@@ -30,6 +30,12 @@ addButton.addEventListener('click', async () => {
 function removeTask(taskID) { 
     console.log(taskID)
     //remove task
+    Array.from(allTasksContainer.children).map(element => {
+        if (element.id == taskID) element.remove();
+     })
+    
+
+
 
 }
 
@@ -66,8 +72,8 @@ function append(task) {
     allTasksContainer.append(createdLi);
 
 
-    createdDeleteButton.addEventListener("click", removeTask(createdLi.getAttribute("id")));
-    createdUpdateButton.addEventListener("click", updateTask(createdLi.getAttribute("id")));
+    createdDeleteButton.addEventListener("click", ()=> removeTask(createdLi.getAttribute("id")));
+    createdUpdateButton.addEventListener("click", ()=> updateTask(createdLi.getAttribute("id")));
 }
 
 

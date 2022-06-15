@@ -7,6 +7,8 @@
 
 body {
     height: 100vh;
+    box-sizing: border-box;
+    padding-top: 45px;
     width: 100%;
     background: linear-gradient(to bottom right, rgb(57,171,122) , rgb(47,66,80));
 }
@@ -19,30 +21,50 @@ input{
     position: relative;
     width: 100%;
     padding: 0 0 15px 10px;
-    border: 2px solid black;
+    background: white;
+    
     margin: 3px 0 3px 0;
 
 }
 
-.update-btn{
-    background-color: blue;
+
+
+#no-tasks-message{
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    color: rgb(54, 54, 54);
 }
 
-.delete-btn{
-    height: 15px;
-    width: 15px;
-    background-color: rgb(183, 6, 6);
-    padding: 4px;
-}
+
+
 
 
 .pairOfButtons{
     position: absolute;
     height: fit-content;
+ 
     top: 0;
     bottom: 0;
     margin: auto;
     right: 10px;
+}
+
+.delete-btn, .update-btn{
+    padding: 3px 10px 3px 10px;
+    background-color: #a0392f;
+    font-weight: 700;
+    color: white;
+}
+
+.update-btn{
+    background-color: #357686;
+    margin-right: 5px;
 }
 
 .par-div{

@@ -10,6 +10,11 @@ const addButton = document.getElementById("add-task-btn")
 const tasksContainer =  document.getElementById("tasks-container")
 const allTasksContainer = document.getElementById("tasks-container-list")
 
+const noTasksMessage = document.getElementById("no-tasks-message")
+
+
+
+
 
 addButton.addEventListener('click', async (e) => { 
     e.preventDefault()
@@ -86,6 +91,12 @@ function validateTask(task) {
     return {status: true, task, message: "ok"}
 };
 
+function checkIfThereAreTasks() {
+    allTasksContainer
+    noTasksMessage.style.visibility = "hidden"
+}
+
+
 class Input {
     static getInputValue() { return addTaskInput.value }
     static clearInput() { return addTaskInput.value = "" }
@@ -104,8 +115,8 @@ function append(task) {
     statusDiv.className = "status-div"
 
     const createdDeleteButton = document.createElement("button");
+    createdDeleteButton.className = "delete-btn"
     createdDeleteButton.innerText = "X"
-    createdDeleteButton.className = "detele-btn"
     
     
     
@@ -116,15 +127,15 @@ function append(task) {
     
     const createdUpdateButton = document.createElement("button");
     createdUpdateButton.className = "update-btn"
-    createdUpdateButton.innerText = "update"
+    createdUpdateButton.innerText = "U"
     
-    const pairOfButtons = document.createElement('p')
+    const pairOfButtons = document.createElement('div');
     pairOfButtons.className= "pairOfButtons"
     
     createdLi.append(statusDiv);
     createdLi.append(parDiv);
-    pairOfButtons.append(createdDeleteButton);
     pairOfButtons.append(createdUpdateButton);
+    pairOfButtons.append(createdDeleteButton);
     createdLi.append(pairOfButtons);
     allTasksContainer.append(createdLi);
 

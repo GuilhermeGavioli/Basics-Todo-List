@@ -17,15 +17,12 @@
 <body>
  
     <div class="w-[60vh] h-[60vh]  rounded-md
-    relative mt-20 m-auto ">
+    m-auto relative ">
 
 
-    <div class=" p-9 bg-green-400/0 rounded-t-3xl border-t-8 border-r-8 border-l-8 border-white ">
-        <h1 class="text-center text-white font-bold text-4xl">Vanilla Js Todo List</h1>
-    </div>
-
-
-    <div class="bg-white w-[60vh] h-[60vh] py-4 px-4 rounded-b-3xl">
+        <div class=" p-9 bg-green-400/0 rounded-t-3xl border-t-8 border-r-8 border-l-8 border-white ">
+            <h1 class="text-center text-white font-bold text-4xl">Vanilla Js Todo List</h1>
+        </div>
 
         <div class="
         bg-white
@@ -36,15 +33,20 @@
         <i class="fa-solid fa-question w-5 text-gray-500"></i>
         </div>
 
+    <div class="bg-white w-[60vh] h-[60vh] py-4 px-4 rounded-b-3xl">
+
+
         <form class="flex justify-between">
 
-            <input type="text" id="task-input" value="" placeholder="type a task..." maxlength="50" class="w-[73%] outline-none border-none">
+            <input type="text" id="task-input" value="" placeholder="Type a new task..." maxlength="50" class="w-[73%] outline-none border-none">
             <button id="add-task-btn" class="bg-[rgb(91,200,156)] w-[25%] px-8 py-2 text-white font-semibold rounded-sm">Add</button>
 
         </form>
         
-        <div id="tasks-container" class="bg-gray-200 w-full h-[85%] rounded-md py-3 px-5 mt-6 overflow-y-scroll">
+        <div id="tasks-container" class="bg-gray-200 w-full h-[85%] rounded-md py-3 px-5 mt-6 overflow-y-scroll relative">
             <ul id="tasks-container-list"></ul>
+
+            <p id="no-tasks-message">No tasks to be shown...</p>
         </div>
 
     </div>

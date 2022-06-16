@@ -6,6 +6,21 @@ const addTaskInput = document.getElementById("task-input")
 const addButton = document.getElementById("add-task-btn")
 
 
+//info did
+const infoDiv = document.getElementById("info-div")
+const infoContainer = document.getElementById("infoContainer")
+
+infoContainer.addEventListener("mouseover", () => {
+    console.log("a")
+    infoDiv.style.visibility = "visible"
+})
+
+infoContainer.addEventListener("mouseout", () => {
+    console.log("e")
+    infoDiv.style.visibility = "hidden"
+})
+
+
 
 const tasksContainer =  document.getElementById("tasks-container")
 const allTasksContainer = document.getElementById("tasks-container-list")
@@ -53,12 +68,12 @@ function changeTaskState(taskID) {
 
             if (element.getAttribute("isdone").toString() == "false") {
                 element.setAttribute("isdone", "true");
-                element.firstChild.style.backgroundColor = "green";
+                element.firstChild.style.backgroundColor = "rgb(50, 230, 62)";
             }
 
             else if (element.getAttribute("isdone").toString() == "true") { 
                 element.setAttribute("isdone", "false");
-                element.firstChild.style.backgroundColor = "red";
+                element.firstChild.style.backgroundColor = "#E64E32";
             }
        
             
@@ -99,7 +114,7 @@ function updateTask(taskID) {
 }
 
 function validateTask(task) {
-    if (task.trim() === "") return { status: false, message: "Empty field or something else" };
+    if (task.trim() === "") return { status: false, message: "Empty field." };
     if(task.length > 50 || task.length < 2) return { status: false, message: "Field is too long or too short." };
     return {status: true, task, message: "ok"}
 };
@@ -130,10 +145,11 @@ function append(task) {
     const statusDiv = document.createElement("div");
     statusDiv.className = "status-div"
 
+    const createdDeleteIcon = document.createElement("i");
+    createdDeleteIcon.className = "fa-solid fa-delete-left";
     const createdDeleteButton = document.createElement("button");
     createdDeleteButton.className = "delete-btn"
-    createdDeleteButton.innerText = "X"
-    
+    createdDeleteButton.append(createdDeleteIcon)
     
     
     const parDiv = document.createElement("div");
@@ -141,9 +157,12 @@ function append(task) {
     parDiv.innerText = task
     
     
+    const createdEditIcon = document.createElement("i");
+    createdEditIcon.className = "fa-solid fa-pen-to-square";
     const createdUpdateButton = document.createElement("button");
     createdUpdateButton.className = "update-btn"
-    createdUpdateButton.innerText = "U"
+    createdUpdateButton.append(createdEditIcon);
+    // createdUpdateButton.innerText = "U"
     
     const pairOfButtons = document.createElement('div');
     pairOfButtons.className= "pairOfButtons"

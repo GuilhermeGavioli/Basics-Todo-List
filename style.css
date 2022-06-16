@@ -3,30 +3,84 @@
 @tailwind utilities;
 
 
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Fascinate+Inline&family=Permanent+Marker&family=Shadows+Into+Light&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
 
 
 body {
     height: 100vh;
     box-sizing: border-box;
-    padding-top: 45px;
-    width: 100%;
     background: linear-gradient(to bottom right, rgb(57,171,122) , rgb(47,66,80));
 }
 
-input{
+/* input{
     outline: none;
+    
+    border: none;
+} */
+
+#task-input{
+    color: rgb(131, 131, 131);
+    outline: none;
+}
+#task-input::placeholder{
+    color: rgb(204, 204, 204);
+    font-weight: 700;
+}
+#task-input:active{
+    outline: none;
+}
+#task-input:focus{
+    outline: none;
+    border: 0 solid green;
+}
+
+*:focus {
+    outline: none;
+    border: 0 solid green;
+}
+
+
+/* input::placeholder{
+    color: rgb(183, 20, 20);
+} */
+
+
+
+
+
+::-webkit-scrollbar{
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 25px;
+    background-color: #bcbcbc;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    border-radius: 25px;
+    background-color: rgba(224, 224, 224, 0.748);
 }
 
 .li-item{
+    border-radius: 4px;
     position: relative;
     width: 100%;
     padding: 0 0 15px 10px;
-    background: white; 
+    background: rgb(255, 255, 255); 
     
     
-    margin: 3px 0 3px 0;
+    margin: 5px 0 5px 0;
 
 }
+
+
 
 
 
@@ -39,7 +93,8 @@ input{
     right: 0;
     left: 0;
     margin: auto;
-    color: rgb(54, 54, 54);
+    font-weight: 700;
+    color: rgb(199, 199, 199);
 }
 
 
@@ -56,30 +111,71 @@ input{
     right: 10px;
 }
 
+
+#add-task-btn{
+    background: #11967e;
+    
+
+    font-weight: bolder;
+    
+}
+/* rgb(17,150,126) */
 .delete-btn, .update-btn{
-    padding: 3px 10px 3px 10px;
-    background-color: #a0392f;
+    
+    padding: 1px 7px 1px 7px;
+    background-color:  rgb(17,150,126);
     font-weight: 700;
     color: white;
 }
 
 .update-btn{
-    background-color: #357686;
+    
+   
+    background-color: rgb(230, 104, 50);
     margin-right: 5px;
 }
 
 .par-div{
-    width: 70%;
+    width: 75%;
+    color: rgb(155, 155, 155);
     overflow-wrap: break-word;
     word-wrap: break-word;
     padding: 10px;
+    font-weight: 500;
+    
+    
+    /* font-family: 'Caveat', cursive;
+    font-family: 'Shadows Into Light', cursive;  */
 }
 
 .status-div{
     position: absolute;
     left: 0;
     top: 0;
-    width: 5px;
-    background-color: red;
+    width: 7px;
+    background-color: #E64E32;
     height: 100%;
+}
+
+#info-div{
+    font-size: small;
+    visibility: hidden;
+    position: absolute;
+    z-index: 50;
+    border-radius: 10px;
+    padding: 5px;
+    right: 40px;
+    top: -7vh;
+    width: 35vh;
+    padding: 5px 10px 5px 10px;
+    height: fit-content;
+    font-weight: 600;
+    font-size: x-small;
+    color: rgb(55, 55, 55);
+    opacity: 97%;
+    background: white;
+}
+
+#title{
+
 }

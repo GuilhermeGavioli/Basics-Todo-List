@@ -11,12 +11,10 @@ const infoDiv = document.getElementById("info-div")
 const infoContainer = document.getElementById("infoContainer")
 
 infoContainer.addEventListener("mouseover", () => {
-    console.log("a")
     infoDiv.style.visibility = "visible"
 })
 
 infoContainer.addEventListener("mouseout", () => {
-    console.log("e")
     infoDiv.style.visibility = "hidden"
 })
 
@@ -29,14 +27,17 @@ const noTasksMessage = document.getElementById("no-tasks-message")
 
 window.addEventListener("load", () => { 
     //getcookies
-    console.log("getting cookies...")
-    
-    const task = localStorage.getItem("task-cookie").split(",")[0].toString();
-    append(task)
+    Object.values(localStorage).map(object => {
+        const parsedObj = JSON.parse(object)
+        append(parsedObj.task, parsedObj.state, parsedObj.id);
+    })
+
+  
+
     
 })
 
-
+ 
 
 
 addButton.addEventListener('click', (e) => { 
@@ -46,14 +47,17 @@ addButton.addEventListener('click', (e) => {
     const validation = validateTask(inputValue)
 
     if (validation.status) {
-
-        append(validation.task);
+        const generatedID = Math.random().toString();
+        append(validation.task,false, generatedID); // it returns the generated random id
         tasksContainer.scrollTo(0, 10000); // scroll to bottom after added.
         checkIfThereAreTasks(); // controls no tasks message
         Input.clearInput();
         
-        localStorage.setItem("task-cookie" , [validation.task, false])
-        document.cookie()
+        localStorage.setItem(generatedID, JSON.stringify({ task: validation.task, state: false, id: generatedID }) );
+   
+        // localStorage.setItem(`task-cookie-${cont}`, [validation.task, false]);
+    
+        // document.cookie();
         return
     }
 
@@ -65,16 +69,28 @@ addButton.addEventListener('click', (e) => {
 function changeTaskState(taskID) {
     Array.from(allTasksContainer.children).map(element => {
         if (element.getAttribute("taskid") == taskID) {
+            // localStorage.removeItem(taskID)
+            Object.values(localStorage).map(object => { 
+                const parsedObj = JSON.parse(object);
+                if (parsedObj.id === taskID) {
+                    let taskText = parsedObj.task
+                    localStorage.removeItem(taskID);
+                    if (element.getAttribute("isdone").toString() == "false") {
+                        element.setAttribute("isdone", "true");
+                        element.firstChild.style.backgroundColor = "rgb(50, 230, 62)";
+                        localStorage.setItem(taskID.toString(), JSON.stringify({ task: taskText, state: true, id: taskID }))
+                    } else if (element.getAttribute("isdone").toString() == "true") { 
+                        element.setAttribute("isdone", "false");
+                        element.firstChild.style.backgroundColor = "#E64E32";
+                        localStorage.setItem(taskID.toString(), JSON.stringify({ task: taskText, state: false, id: taskID }))
+                    }
+                 
 
-            if (element.getAttribute("isdone").toString() == "false") {
-                element.setAttribute("isdone", "true");
-                element.firstChild.style.backgroundColor = "rgb(50, 230, 62)";
-            }
 
-            else if (element.getAttribute("isdone").toString() == "true") { 
-                element.setAttribute("isdone", "false");
-                element.firstChild.style.backgroundColor = "#E64E32";
-            }
+                }
+            });
+            // localStorage.setItem(taskID)
+
        
             
             
@@ -89,17 +105,39 @@ function changeTaskState(taskID) {
 function removeTask(taskID) {
     //e target remove
     Array.from(allTasksContainer.children).map(element => {
-        if (element.getAttribute("taskid") == taskID) element.remove();
+        if (element.getAttribute("taskid") == taskID) { 
+            localStorage.removeItem(taskID)
+            element.remove();
+        };
     })
     checkIfThereAreTasks();
 }
 
+
 function updateTask(taskID) {
     Array.from(allTasksContainer.children).map(element => {
-        console.log("here")
-        if (element.getAttribute("taskid") == taskID) { 
+
+
+        
+        
+        
+        if (element.getAttribute("taskid") == taskID) {
             const validation = validateTask(addTaskInput.value)
-            if (validation.status){
+            if (validation.status) {
+                
+
+                Object.values(localStorage).map(object => {
+                    const parsedObj = JSON.parse(object);
+                    if (parsedObj.id === taskID) {
+                        let taskState = parsedObj.state
+                        localStorage.removeItem(taskID.toString())
+                        localStorage.removeItem(taskID)
+                        localStorage.setItem(taskID, JSON.stringify({ task: addTaskInput.value, state: taskState, id: taskID }))
+                    }
+                })
+                
+                
+
                 element.children[1].innerText = addTaskInput.value
                 return Input.clearInput();
             }
@@ -120,7 +158,6 @@ function validateTask(task) {
 };
 
 function checkIfThereAreTasks() {
-    console.log(allTasksContainer.children)
     if (allTasksContainer.children.length > 0) return noTasksMessage.style.visibility = "hidden"
     noTasksMessage.style.visibility = "visible"
 }
@@ -133,17 +170,21 @@ class Input {
 
 
 
-function append(task) {
+function append(task, state, randomId) {
     //change created word
     const createdLi = document.createElement("li");
     createdLi.className = "li-item"
-    createdLi.setAttribute("taskId", Math.random().toString());
-    createdLi.setAttribute("isdone", "false");
+    createdLi.setAttribute("taskId", randomId);
+    createdLi.setAttribute("isdone", state.toString());
 
 
     
     const statusDiv = document.createElement("div");
     statusDiv.className = "status-div"
+ 
+    if (state.toString() === "true") statusDiv.style.backgroundColor = "rgb(50, 230, 62)";
+    if (state.toString() === "false") statusDiv.style.backgroundColor = "#E64E32";
+    
 
     const createdDeleteIcon = document.createElement("i");
     createdDeleteIcon.className = "fa-solid fa-delete-left";
@@ -178,7 +219,9 @@ function append(task) {
     createdDeleteButton.addEventListener("click", ()=> removeTask(createdLi.getAttribute("taskId")));
     createdUpdateButton.addEventListener("click", () => updateTask(createdLi.getAttribute("taskId")));
     checkIfThereAreTasks();
+   
 
+    
 }
 
 

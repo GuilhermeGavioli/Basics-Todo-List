@@ -77,11 +77,11 @@ function changeTaskState(taskID) {
                     localStorage.removeItem(taskID);
                     if (element.getAttribute("isdone").toString() == "false") {
                         element.setAttribute("isdone", "true");
-                        element.firstChild.style.backgroundColor = "rgb(50, 230, 62)";
+                        element.firstChild.style.backgroundColor = "rgb(199,199,199)";
                         localStorage.setItem(taskID.toString(), JSON.stringify({ task: taskText, state: true, id: taskID }))
                     } else if (element.getAttribute("isdone").toString() == "true") { 
                         element.setAttribute("isdone", "false");
-                        element.firstChild.style.backgroundColor = "#E64E32";
+                        element.firstChild.style.backgroundColor = "rgb(255, 119, 0)";
                         localStorage.setItem(taskID.toString(), JSON.stringify({ task: taskText, state: false, id: taskID }))
                     }
                  
@@ -182,8 +182,8 @@ function append(task, state, randomId) {
     const statusDiv = document.createElement("div");
     statusDiv.className = "status-div"
  
-    if (state.toString() === "true") statusDiv.style.backgroundColor = "rgb(50, 230, 62)";
-    if (state.toString() === "false") statusDiv.style.backgroundColor = "#E64E32";
+    if (state.toString() === "true") statusDiv.style.backgroundColor = "rgb(199,199,199)";
+    if (state.toString() === "false") statusDiv.style.backgroundColor = "rgb(255, 119, 0)";
     
 
     const createdDeleteIcon = document.createElement("i");

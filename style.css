@@ -15,7 +15,7 @@
 body {
     height: 100vh;
     box-sizing: border-box;
-    background: linear-gradient(to bottom right, rgb(54, 54, 54) , rgb(80,80,80));
+    background: linear-gradient(to right,rgb(57, 170, 121), rgb(47, 57, 81));
 }
 
 /* input{
@@ -113,7 +113,10 @@ body {
 
 
 #add-task-btn{
+    background: rgb(57, 103, 40);
+    background: rgb(103, 40, 40);
     background: rgb(81, 81, 81);
+    background-color: rgb(17, 150, 126);
     
 
     font-weight: bolder;
@@ -123,15 +126,15 @@ body {
 .delete-btn, .update-btn{
     
     padding: 1px 7px 1px 7px;
-    background-color:  rgb(68, 68, 68);
+    background-color:  rgb(17, 150, 126);
     font-weight: 700;
     color: white;
 }
 
 .update-btn{
     
-   
-    background-color: rgb(255, 119, 0);
+    background-color: rgb(230, 104, 50);
+    
     margin-right: 5px;
 }
 
